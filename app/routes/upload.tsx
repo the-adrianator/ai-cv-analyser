@@ -87,9 +87,9 @@ const upload = () => {
     setStatusText(
       "Your CV analysis is complete, redirecting to feedback page..."
     );
-    console.log(data);
+    // console.log(data);
     // setIsProcessing(false);
-    // navigate(`/feedback/${uuid}`);
+    navigate(`/cv/${uuid}`);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

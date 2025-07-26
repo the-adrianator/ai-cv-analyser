@@ -28,7 +28,7 @@ export default function Home() {
       setLoadingCVs(true);
       const cvs = (await kv.list("CV:*", true)) as KVItem[];
       const parsedCVs = cvs?.map((cv) => JSON.parse(cv.value) as Resume);
-      console.log("parsedCVs", parsedCVs);
+      // console.log("parsedCVs", parsedCVs);
       setFetchedCVs(parsedCVs || []);
       setLoadingCVs(false);
     };
@@ -55,7 +55,18 @@ export default function Home() {
               </Link>
             </div>
           ) : (
-            <h2>Review your submissions and get AI-powered feedback.</h2>
+            <div className="flex flex-col items-center gap-4">
+              <h2>Review your submissions and get AI-powered feedback.</h2>
+              <div className="flex gap-4">
+                <Link
+                  to="/wipe"
+                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
+                >
+                  <span>🗑️</span>
+                  <span>Manage Data</span>
+                </Link>
+              </div>
+            </div>
           )}
         </div>
 

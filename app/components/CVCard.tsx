@@ -15,16 +15,21 @@ const CVCard = ({
   useEffect(() => {
     const loadCVs = async () => {
       setLoadingCV(true);
-      const blob = await fs.read(imagePath);
-      if (!blob) {
+      try {
+        const blob = await fs.read(imagePath);
+        if (!blob) {
+          setCVUrl(imagePath);
+          setLoadingCV(false);
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        setCVUrl(url);
+        setLoadingCV(false);
+      } catch (error) {
+        console.log("error fetching cv", error);
         setCVUrl(imagePath);
         setLoadingCV(false);
-        return;
       }
-
-      const url = URL.createObjectURL(blob);
-      setCVUrl(url);
-      setLoadingCV(false);
     };
 
     loadCVs();

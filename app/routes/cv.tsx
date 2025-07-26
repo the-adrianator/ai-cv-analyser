@@ -49,11 +49,11 @@ const CV = () => {
 
       setFeedback(data.feedback);
 
-      console.log({
-        cvUrl,
-        imageUrl,
-        feedback: data.feedback,
-      });
+      // console.log({
+      //   cvUrl,
+      //   imageUrl,
+      //   feedback: data.feedback,
+      // });
     };
 
     loadCV();

@@ -33,7 +33,7 @@ const Summary = ({ feedback }: { feedback: Feedback }) => {
         <div className="flex flex-col gap-2">
           <h3 className="text-2xl font-bold">Your CV Score</h3>
           <p className="text-sm text-gray-500">
-            This score is calculated based on the variables below.
+            This score is calculated based on the variables listed below.
           </p>
         </div>
       </div>

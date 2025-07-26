@@ -14,11 +14,11 @@ export const meta = () => {
 
 const CV = () => {
   const { id } = useParams();
-  const { auth, isLoading, fs, ai, kv } = usePuterStore();
+  const { auth, isLoading, fs, kv } = usePuterStore();
 
   const [imageUrl, setImageUrl] = useState<string>("");
   const [cvUrl, setcvUrl] = useState<string>("");
-  const [feedback, setFeedback] = useState<string>("");
+  const [feedback, setFeedback] = useState<Feedback | null>(null);
 
   const navigate = useNavigate();
 
@@ -88,9 +88,12 @@ const CV = () => {
           <h2 className="text-4xl font-bold !text-black">CV review</h2>
           {feedback ? (
             <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
-              <Summary />
-              <ATS />
-              <Details />
+              <Summary feedback={feedback} />
+              {/* <ATS
+                score={feedback.ATS.score || 0}
+                suggestions={feedback.ATS.tips || []}
+              />
+              <Details feedback={feedback} /> */}
             </div>
           ) : (
             <img src="/images/resume-scan-2.gif" className="w-full" />

@@ -1,4 +1,4 @@
-import { prepareInstructions } from "constants";
+import { prepareInstructions } from "../../constants";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import FileUploader from "~/components/FileUploader";

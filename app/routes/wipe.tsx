@@ -115,10 +115,10 @@ const WipeApp = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-primary rounded-2xl shadow-lg p-8 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your data...</p>
+          <p className="text-secondary">Loading your data...</p>
         </div>
       </div>
     );
@@ -126,11 +126,11 @@ const WipeApp = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 flex items-center justify-center">
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center max-w-md">
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-primary rounded-2xl shadow-lg p-8 text-center max-w-md">
           <div className="text-red-500 text-4xl mb-4">⚠️</div>
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">Error</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <h2 className="text-xl font-semibold text-primary mb-2">Error</h2>
+          <p className="text-secondary mb-4">{error}</p>
           <button
             onClick={clearError}
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
@@ -143,16 +143,16 @@ const WipeApp = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+        <div className="bg-primary rounded-2xl shadow-lg p-6 mb-6 border-theme">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-800">
+              <h1 className="text-3xl font-bold text-primary">
                 Data Management
               </h1>
-              <p className="text-gray-600 mt-1">
+              <p className="text-secondary mt-1">
                 Welcome back,{" "}
                 <span className="font-semibold text-blue-600">
                   {auth.user?.username}
@@ -163,16 +163,16 @@ const WipeApp = () => {
               <div className="text-2xl font-bold text-blue-600">
                 {files.length}
               </div>
-              <div className="text-sm text-gray-500">Files Found</div>
+              <div className="text-sm text-secondary">Files Found</div>
             </div>
           </div>
 
-          <div className="bg-blue-50 rounded-lg p-4">
+          <div className="bg-secondary rounded-lg p-4">
             <div className="flex items-center gap-3">
               <div className="text-blue-500 text-xl">ℹ️</div>
               <div>
-                <h3 className="font-semibold text-gray-800">About This Page</h3>
-                <p className="text-sm text-gray-600">
+                <h3 className="font-semibold text-primary">About This Page</h3>
+                <p className="text-sm text-secondary">
                   This tool allows you to clear all your stored data and files.
                   This action cannot be undone.
                 </p>
@@ -182,8 +182,8 @@ const WipeApp = () => {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+        <div className="bg-primary rounded-2xl shadow-lg p-6 mb-6 border-theme">
+          <h2 className="text-xl font-semibold text-primary mb-4">
             Quick Navigation
           </h2>
           <div className="flex gap-4">
@@ -205,9 +205,9 @@ const WipeApp = () => {
         </div>
 
         {/* Files List */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+        <div className="bg-primary rounded-2xl shadow-lg p-6 mb-6 border-theme">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-gray-800">Your Files</h2>
+            <h2 className="text-xl font-semibold text-primary">Your Files</h2>
             {files.length > 0 && (
               <div className="flex gap-2">
                 <button
@@ -218,7 +218,7 @@ const WipeApp = () => {
                 </button>
                 <button
                   onClick={deselectAllFiles}
-                  className="text-sm text-gray-600 hover:text-gray-700 px-2 py-1 rounded"
+                  className="text-sm text-secondary hover:text-primary px-2 py-1 rounded"
                 >
                   Deselect All
                 </button>
@@ -229,7 +229,7 @@ const WipeApp = () => {
           {files.length === 0 ? (
             <div className="text-center py-8">
               <div className="text-4xl mb-4">📁</div>
-              <p className="text-gray-500">No files found</p>
+              <p className="text-secondary">No files found</p>
             </div>
           ) : (
             <div className="grid gap-3">
@@ -238,8 +238,8 @@ const WipeApp = () => {
                   key={file.id}
                   className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-colors cursor-pointer ${
                     selectedFiles.has(file.id)
-                      ? "bg-blue-50 border-blue-200"
-                      : "bg-gray-50 border-transparent hover:bg-gray-100"
+                      ? "bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-700"
+                      : "bg-secondary border-transparent hover:bg-secondary"
                   }`}
                   onClick={() => toggleFileSelection(file.id)}
                 >
@@ -252,8 +252,8 @@ const WipeApp = () => {
                   />
                   <span className="text-xl">{getFileIcon(file.name)}</span>
                   <div className="flex-1">
-                    <p className="font-medium text-gray-800">{file.name}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="font-medium text-primary">{file.name}</p>
+                    <p className="text-xs text-secondary">
                       {file.size
                         ? `${(file.size / 1024).toFixed(1)} KB`
                         : "Unknown size"}
@@ -265,8 +265,8 @@ const WipeApp = () => {
           )}
 
           {selectedFiles.size > 0 && (
-            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-              <p className="text-sm text-blue-800">
+            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <p className="text-sm text-blue-800 dark:text-blue-200">
                 {selectedFiles.size} file{selectedFiles.size !== 1 ? "s" : ""}{" "}
                 selected
               </p>
@@ -275,15 +275,15 @@ const WipeApp = () => {
         </div>
 
         {/* Action Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
+        <div className="bg-primary rounded-2xl shadow-lg p-6 border-theme">
           <div className="space-y-4">
             {/* Clear All Option */}
-            <div className="flex items-center justify-between p-4 bg-red-50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                <h2 className="text-xl font-semibold text-primary mb-2">
                   Clear All Data
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-secondary">
                   This will permanently delete all your files and stored data.
                 </p>
               </div>
@@ -305,12 +305,12 @@ const WipeApp = () => {
             </div>
 
             {/* Clear Selected Option */}
-            <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                <h2 className="text-xl font-semibold text-primary mb-2">
                   Clear Selected Files
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-secondary">
                   Delete only the files you've selected. More control over your
                   data.
                 </p>
@@ -337,13 +337,13 @@ const WipeApp = () => {
         {/* Confirmation Modal for All Files */}
         {showConfirmation && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full">
+            <div className="bg-primary rounded-2xl shadow-xl p-6 max-w-md w-full">
               <div className="text-center">
                 <div className="text-red-500 text-4xl mb-4">⚠️</div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-xl font-semibold text-primary mb-2">
                   Are you sure?
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-secondary mb-6">
                   This action will permanently delete all {files.length} files
                   and clear all stored data. This cannot be undone.
                 </p>
@@ -351,7 +351,7 @@ const WipeApp = () => {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowConfirmation(false)}
-                    className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition-colors"
+                    className="flex-1 bg-secondary hover:bg-gray-300 text-primary px-4 py-2 rounded-lg transition-colors"
                   >
                     Cancel
                   </button>
@@ -370,13 +370,13 @@ const WipeApp = () => {
         {/* Confirmation Modal for Selected Files */}
         {showSelectConfirmation && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full">
+            <div className="bg-primary rounded-2xl shadow-xl p-6 max-w-md w-full">
               <div className="text-center">
                 <div className="text-blue-500 text-4xl mb-4">⚠️</div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-xl font-semibold text-primary mb-2">
                   Delete Selected Files?
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-secondary mb-6">
                   This action will permanently delete {selectedFiles.size}{" "}
                   selected file{selectedFiles.size !== 1 ? "s" : ""}. This
                   cannot be undone.
@@ -385,7 +385,7 @@ const WipeApp = () => {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowSelectConfirmation(false)}
-                    className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition-colors"
+                    className="flex-1 bg-secondary hover:bg-gray-300 text-primary px-4 py-2 rounded-lg transition-colors"
                   >
                     Cancel
                   </button>

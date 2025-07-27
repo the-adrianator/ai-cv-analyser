@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { usePuterStore } from "./lib/puter";
+import { useThemeStore } from "./lib/theme";
 import { useEffect } from "react";
 
 export const links: Route.LinksFunction = () => [
@@ -27,20 +28,31 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { init } = usePuterStore();
+  const { theme, initTheme } = useThemeStore();
 
   useEffect(() => {
     init();
-  }, [init]);
+    initTheme();
+  }, [init, initTheme]);
+
+  // Apply theme class to document on theme change
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  }, [theme]);
 
   return (
-    <html lang="en">
+    <html lang="en" className={theme} data-theme={theme}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className={`transition-all duration-300 ${theme}`} style={{background: 'transparent'}}>
         <script src="https://js.puter.com/v2/"></script>
 
         {children}
@@ -72,12 +84,12 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <main className="pt-16 p-4 container mx-auto bg-primary text-primary">
+      <h1 className="text-primary">{message}</h1>
+      <p className="text-secondary">{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
+        <pre className="w-full p-4 overflow-x-auto bg-secondary border-theme rounded-lg">
+          <code className="text-primary">{stack}</code>
         </pre>
       )}
     </main>

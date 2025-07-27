@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import React, { createContext, useContext, useState } from "react";
 import { cn } from "~/lib/utils";
+import { useThemeStore } from "~/lib/theme";
 
 interface AccordionContextType {
   activeItems: string[];
@@ -72,7 +73,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`overflow-hidden border-b border-gray-200 ${className}`}>
+    <div className={`overflow-hidden border-b border-theme ${className}`}>
       {children}
     </div>
   );
@@ -93,8 +94,11 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
   icon,
   iconPosition = "right",
 }) => {
+  const { theme } = useThemeStore();
   const { toggleItem, isItemActive } = useAccordion();
   const isActive = isItemActive(itemId);
+
+  const strokeColor = theme === 'dark' ? '#cbd5e1' : '#98A2B3';
 
   const defaultIcon = (
     <svg
@@ -102,7 +106,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
         "rotate-180": isActive,
       })}
       fill="none"
-      stroke="#98A2B3"
+      stroke={strokeColor}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -124,7 +128,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
       onClick={handleClick}
       className={`
         w-full px-4 py-3 text-left
-        focus:outline-none
+        focus:outline-none hover:bg-secondary
         transition-colors duration-200 flex items-center justify-between cursor-pointer
         ${className}
       `}
@@ -160,7 +164,7 @@ export const AccordionContent: React.FC<AccordionContentProps> = ({
         ${className}
       `}
     >
-      <div className="px-4 py-3 ">{children}</div>
+      <div className="px-4 py-3">{children}</div>
     </div>
   );
 };

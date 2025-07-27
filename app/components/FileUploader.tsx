@@ -7,7 +7,6 @@ interface FileUploaderProps {
 }
 
 const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
-  // const [file, setFile] = useState<File | null>(null);
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0] || null;
@@ -21,8 +20,6 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({
-      // noClick: true,
-      // noKeyboard: true,
       multiple: false,
       accept: {
         "application/pdf": [".pdf"],
@@ -53,31 +50,32 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                   className="size-10 object-contain"
                 />
                 <div>
-                  <p className="text-sm text-gray-700 font-medium truncate max-w-xs">
+                  <p className="text-sm text-primary font-medium truncate max-w-xs">
                     <span className="font-semibold">{file.name}</span>
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-secondary">
                     {formatSize(file.size)}
                   </p>
                 </div>
               </div>
               <button
-                className="p-2 cursor-pointer"
+                className="p-2 cursor-pointer hover:bg-secondary rounded-lg transition-colors duration-200"
                 onClick={(e) => onFileSelect?.(null)}
+                aria-label="Remove file"
               >
                 <img src="/icons/cross.svg" alt="cross" className="size-4" />
               </button>
             </div>
           ) : (
-            <div className="text-center">
+            <div className="text-center uplader-drag-area">
               <div className="mx-auto w-16 h-16 flex items-center justify-center mb-2">
                 <img src="/icons/info.svg" alt="upload" className="size-20" />
               </div>
-              <p className="text-lg text-gray-500">
+              <p className="text-lg text-secondary">
                 <span className="font-semibold">Click to upload</span> or drag
                 and drop your CV here
               </p>
-              <p className="text-lg text-gray-500">
+              <p className="text-lg text-secondary">
                 PDF (max {formatSize(maxFileSize)})
               </p>
             </div>

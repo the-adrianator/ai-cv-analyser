@@ -6,4 +6,5 @@ export default [
   route("/upload", "routes/upload.tsx"),
   route("/cv/:id", "routes/cv.tsx"),
   route("/wipe", "routes/wipe.tsx"),
+  route("/theme-test", "routes/theme-test.tsx"), // Theme system demo page
 ] satisfies RouteConfig;

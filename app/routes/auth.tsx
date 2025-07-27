@@ -20,9 +20,9 @@ const Auth = () => {
   }, [auth.isAuthenticated, next]);
 
   return (
-    <main className="bg-[url('/images/bg-auth.svg')] min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center">
+    <main className="min-h-screen flex items-center justify-center">
       <div className="gradient-border shadow-lg">
-        <section className="flex flex-col gap-8 bg-white rounded-2xl p-10">
+        <section className="flex flex-col gap-8 bg-primary rounded-2xl p-10">
           <div className="flex flex-col items-center gap-2 text-center">
             <h1>Welcome to CV Engine</h1>
             <h2>Log in to continue your employment journey</h2>

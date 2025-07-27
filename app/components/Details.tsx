@@ -12,10 +12,10 @@ const ScoreBadge = ({ score }: { score: number }) => {
       className={cn(
         "flex flex-row gap-1 items-center px-2 py-0.5 rounded-[96px]",
         score > 69
-          ? "bg-badge-green"
-          : score > 39
-          ? "bg-badge-yellow"
-          : "bg-badge-red"
+          ? "score-badge green"
+          : score > 49
+          ? "score-badge yellow"
+          : "score-badge red"
       )}
     >
       <img
@@ -23,18 +23,7 @@ const ScoreBadge = ({ score }: { score: number }) => {
         alt="score"
         className="size-4"
       />
-      <p
-        className={cn(
-          "text-sm font-medium",
-          score > 69
-            ? "text-badge-green-text"
-            : score > 39
-            ? "text-badge-yellow-text"
-            : "text-badge-red-text"
-        )}
-      >
-        {score}/100
-      </p>
+      <p className="text-sm font-medium">{score}/100</p>
     </div>
   );
 };
@@ -48,7 +37,7 @@ const CategoryHeader = ({
 }) => {
   return (
     <div className="flex flex-row gap-4 items-center py-2">
-      <p className="text-2xl font-semibold">{title}</p>
+      <p className="text-2xl font-semibold text-primary">{title}</p>
       <ScoreBadge score={categoryScore} />
     </div>
   );
@@ -61,7 +50,7 @@ const CategoryContent = ({
 }) => {
   return (
     <div className="flex flex-col gap-4 items-center w-full">
-      <div className="bg-gray-50 w-full rounded-lg px-5 py-4 grid grid-cols-2 gap-4">
+      <div className="bg-secondary w-full rounded-lg px-5 py-4 grid grid-cols-1 md:grid-cols-2 gap-4">
         {tips.map((tip, index) => (
           <div className="flex flex-row gap-2 items-center" key={index}>
             <img
@@ -71,7 +60,7 @@ const CategoryContent = ({
               alt="score"
               className="size-5"
             />
-            <p className="text-xl text-gray-500 ">{tip.tip}</p>
+            <p className="text-xl text-secondary font-medium">{tip.tip}</p>
           </div>
         ))}
       </div>
@@ -80,10 +69,8 @@ const CategoryContent = ({
           <div
             key={index + tip.tip}
             className={cn(
-              "flex flex-col gap-2 rounded-2xl p-4",
-              tip.type === "good"
-                ? "bg-green-50 border border-green-200 text-green-700"
-                : "bg-yellow-50 border border-yellow-200 text-yellow-700"
+              "flex flex-col gap-2 rounded-2xl p-4 border border-theme items-start",
+              tip.type === "good" ? "score-badge green" : "score-badge yellow"
             )}
           >
             <div className="flex flex-row gap-2 items-center">
@@ -98,7 +85,7 @@ const CategoryContent = ({
               />
               <p className="text-xl font-semibold">{tip.tip}</p>
             </div>
-            <p>{tip.explanation}</p>
+            <p className="leading-relaxed">{tip.explanation}</p>
           </div>
         ))}
       </div>

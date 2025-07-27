@@ -9,14 +9,16 @@ const CVCard = ({
   resume: Resume;
 }) => {
   const { fs } = usePuterStore();
-  const [cvUrl, setCVUrl] = useState("");
+  const [cvUrl, setCVUrl] = useState<string | undefined>(undefined);
   const [loadingCV, setLoadingCV] = useState(false);
 
   useEffect(() => {
     const loadCVs = async () => {
       setLoadingCV(true);
       try {
-        const blob = await fs.read(imagePath);
+        const blob = imagePath.startsWith("/images/")
+          ? undefined
+          : await fs.read(imagePath);
         if (!blob) {
           setCVUrl(imagePath);
           setLoadingCV(false);
@@ -26,7 +28,7 @@ const CVCard = ({
         setCVUrl(url);
         setLoadingCV(false);
       } catch (error) {
-        console.log("error fetching cv", error);
+        // console.log("error fetching cv", error);
         setCVUrl(imagePath);
         setLoadingCV(false);
       }
@@ -34,6 +36,9 @@ const CVCard = ({
 
     loadCVs();
   }, [imagePath]);
+
+  // console.log("cvUrl", cvUrl);
+
   return (
     <Link
       to={`/cv/${id}`}
@@ -42,13 +47,15 @@ const CVCard = ({
       <div className="resume-card-header">
         <div className="flex flex-col gap-2">
           {companyName && (
-            <h2 className="!text-black font-bold break-words">{companyName}</h2>
+            <h2 className="text-primary font-bold break-words">
+              {companyName}
+            </h2>
           )}
           {jobTitle && (
-            <h3 className="text-lg break-words text-gray-500">{jobTitle}</h3>
+            <h3 className="text-lg break-words text-secondary">{jobTitle}</h3>
           )}
           {!companyName && !jobTitle && (
-            <h3 className="text-lg break-words text-gray-500">CV</h3>
+            <h3 className="text-lg break-words text-secondary">CV</h3>
           )}
         </div>
         <div className="flex-shrink-0">
@@ -60,7 +67,7 @@ const CVCard = ({
           <img
             src={loadingCV ? "/images/resume-scan-2.gif" : cvUrl}
             alt="cv"
-            className="w-full h-[350px] max-sm:h-[200px] object-cover object-top"
+            className="w-full h-[350px] max-sm:h-[200px] object-cover object-top rounded-lg"
           />
         </div>
       </div>

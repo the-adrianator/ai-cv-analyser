@@ -5,6 +5,8 @@
 @theme {
   --font-sans: "Mona Sans", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Light Theme Colors */
   --color-dark-200: #475467;
   --color-light-blue-100: #c1d3f81a;
   --color-light-blue-200: #a7bff14d;
@@ -16,33 +18,188 @@
   --color-badge-green-text: #254d4a;
   --color-badge-red-text: #752522;
   --color-badge-yellow-text: #73321b;
+
+  /* Light Theme Variables */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-border-light: #f1f5f9;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-light: rgba(0, 0, 0, 0.05);
+
+  /* Dark Theme Variables - Enhanced Contrast */
+  --color-dark-bg-primary: #0f172a;
+  --color-dark-bg-secondary: #1e293b;
+  --color-dark-bg-tertiary: #334155;
+  --color-dark-text-primary: #ffffff;
+  --color-dark-text-secondary: #e2e8f0;
+  --color-dark-text-muted: #cbd5e1;
+  --color-dark-border: #475569;
+  --color-dark-border-light: #64748b;
+  --color-dark-shadow: rgba(0, 0, 0, 0.6);
+  --color-dark-shadow-light: rgba(0, 0, 0, 0.3);
+
+  /* Dark Theme Badge Colors */
+  --color-dark-badge-green: #1a3a35;
+  --color-dark-badge-red: #3d1a1a;
+  --color-dark-badge-yellow: #3d2a1a;
+
+  --color-dark-badge-green-text: #86efac;
+  --color-dark-badge-red-text: #fca5a5;
+  --color-dark-badge-yellow-text: #fcd34d;
+}
+
+/* Root theme application */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure theme is applied to all background elements */
+* {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 
 html,
 body {
-  @apply bg-white;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark,
+html.dark body {
+  background-color: var(--color-dark-bg-primary) !important;
+  color: var(--color-dark-text-primary) !important;
+}
+
+/* Theme-aware utilities */
+.bg-primary {
+  background-color: var(--color-bg-primary);
+}
+
+.dark .bg-primary {
+  background-color: var(--color-dark-bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-bg-secondary);
+}
+
+.dark .bg-secondary {
+  background-color: var(--color-dark-bg-secondary);
+}
+
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.dark .text-primary {
+  color: var(--color-dark-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.dark .text-secondary {
+  color: var(--color-dark-text-secondary);
+}
+
+.border-theme {
+  border-color: var(--color-border);
+}
+
+.dark .border-theme {
+  border-color: var(--color-dark-border);
 }
 
 main {
-  @apply min-h-screen pt-10;
+  @apply min-h-screen pt-10 bg-gradient;
+  transition: background 0.3s ease;
 }
+
+html.dark main {
+  background: linear-gradient(to bottom, #0f172a 60%, #4c1d95) !important;
+}
+
 h1 {
-  @apply max-sm:text-[3rem] text-6xl  text-gradient leading-tight xl:tracking-[-2px] font-semibold;
+  @apply max-sm:text-[3rem] text-6xl text-gradient leading-tight xl:tracking-[-2px] font-semibold;
 }
 
 h2 {
-  @apply max-sm:text-xl text-3xl text-dark-200;
+  @apply max-sm:text-xl text-3xl;
+  color: var(--color-text-secondary);
+  transition: color 0.3s ease;
+}
+
+html.dark h2 {
+  color: var(--color-dark-text-secondary);
+  /* Enhanced contrast for dark mode */
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced contrast for all headings in dark mode */
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+  color: var(--color-dark-text-primary) !important;
+  font-weight: 600;
 }
 
 label {
-  @apply text-dark-200;
+  color: var(--color-text-secondary);
+  transition: color 0.3s ease;
 }
+
+html.dark label {
+  color: var(--color-dark-text-secondary);
+}
+
 input {
-  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+html.dark input {
+  background-color: var(--color-dark-bg-secondary);
+  color: var(--color-dark-text-primary);
+  border-color: var(--color-dark-border);
+}
+
+input:focus {
+  border-color: #8e98ff;
+  box-shadow: 0 0 0 3px rgba(142, 152, 255, 0.1);
 }
 
 textarea {
-  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+html.dark textarea {
+  background-color: var(--color-dark-bg-secondary);
+  color: var(--color-dark-text-primary);
+  border-color: var(--color-dark-border);
+}
+
+textarea:focus {
+  border-color: #8e98ff;
+  box-shadow: 0 0 0 3px rgba(142, 152, 255, 0.1);
 }
 
 form {
@@ -53,39 +210,103 @@ form {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
   }
+
+  html.dark .text-gradient {
+    @apply bg-gradient-to-r from-[#f8c5d1] via-[#ffffff] to-[#c5d2ff];
+    /* Much brighter gradient for dark mode */
+  }
+
   .gradient-border {
     @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200 p-4 rounded-2xl;
+    transition: all 0.3s ease;
   }
+
+  html.dark .gradient-border {
+    background: linear-gradient(to bottom, rgba(30, 41, 59, 0.6), rgba(51, 65, 85, 0.6));
+  }
+
   .primary-button {
     @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full;
+    transition: all 0.3s ease;
   }
+
   .resume-nav {
-    @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
+    @apply flex flex-row justify-between items-center p-4 border-b;
+    border-color: var(--color-border);
+    background-color: var(--color-bg-primary);
+    transition: all 0.3s ease;
   }
+
+  html.dark .resume-nav {
+    border-color: var(--color-dark-border);
+    background-color: var(--color-dark-bg-primary);
+  }
+
   .resume-summary {
     @apply flex flex-row items-center justify-center p-4 gap-4;
-    .category {
-      @apply flex flex-row gap-2 items-center bg-gray-50 rounded-2xl p-4 w-full justify-between;
-    }
   }
+
+  .resume-summary .category {
+    @apply flex flex-row gap-2 items-center rounded-2xl p-4 w-full justify-between;
+    background-color: var(--color-bg-secondary);
+    transition: all 0.3s ease;
+  }
+
+  html.dark .resume-summary .category {
+    background-color: var(--color-dark-bg-secondary);
+  }
+
   .back-button {
-    @apply flex flex-row items-center gap-2 border border-gray-200 rounded-lg p-2 shadow-sm;
+    @apply flex flex-row items-center gap-2 border rounded-lg p-2 shadow-sm;
+    border-color: var(--color-border);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    transition: all 0.3s ease;
   }
+
+  html.dark .back-button {
+    border-color: var(--color-dark-border);
+    background-color: var(--color-dark-bg-secondary);
+    color: var(--color-dark-text-primary);
+  }
+
   .auth-button {
     @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-[600px] max-md:w-full text-3xl font-semibold text-white;
   }
+
   .main-section {
     @apply flex flex-col items-center gap-8 pt-12 max-sm:mx-2 mx-15 pb-5;
   }
+
   .page-heading {
     @apply flex flex-col items-center gap-8 max-w-4xl text-center max-sm:gap-4;
   }
+
   .resumes-section {
     @apply flex flex-wrap max-md:flex-col max-md:gap-4 gap-6 items-start max-md:items-center w-full max-w-[1850px] justify-evenly;
   }
 
   .resume-card {
-    @apply flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] bg-white rounded-2xl p-4;
+    @apply flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] rounded-2xl p-4;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 6px var(--color-shadow-light);
+    transition: all 0.3s ease;
+  }
+
+  html.dark .resume-card {
+    background-color: var(--color-dark-bg-secondary);
+    border-color: var(--color-dark-border);
+    box-shadow: 0 4px 6px var(--color-dark-shadow-light);
+  }
+
+  .resume-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--color-shadow);
+  }
+
+  html.dark .resume-card:hover {
+    box-shadow: 0 8px 25px var(--color-dark-shadow);
   }
 
   .resume-card-header {
@@ -94,14 +315,29 @@ form {
 
   .feedback-section {
     @apply flex flex-col gap-8 w-1/2 px-8 max-lg:w-full py-6;
+    background-color: var(--color-bg-primary);
+    transition: all 0.3s ease;
+  }
+
+  html.dark .feedback-section {
+    background-color: var(--color-dark-bg-primary) !important;
   }
 
   .navbar {
-    @apply flex flex-row justify-between items-center bg-white rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto;
+    @apply flex flex-row justify-between items-center rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+  }
+
+  html.dark .navbar {
+    background-color: var(--color-dark-bg-secondary);
+    border-color: var(--color-dark-border);
   }
 
   .score-badge {
     @apply flex flex-row items-center justify-center py-1 px-2 gap-4 rounded-[96px];
+    transition: all 0.3s ease;
   }
 
   .form-div {
@@ -109,23 +345,61 @@ form {
   }
 
   .uplader-drag-area {
-    @apply relative p-8 text-center transition-all duration-700 cursor-pointer bg-white rounded-2xl min-h-[208px];
+    @apply relative p-8 text-center transition-all duration-700 cursor-pointer rounded-2xl min-h-[208px];
+    background-color: var(--color-bg-primary);
+    border: 2px dashed var(--color-border);
+    color: var(--color-text-secondary);
   }
+
+  html.dark .uplader-drag-area {
+    background-color: var(--color-dark-bg-secondary);
+    border-color: var(--color-dark-border);
+    color: var(--color-dark-text-secondary);
+  }
+
+  .uplader-drag-area:hover {
+    border-color: #8e98ff;
+    background-color: var(--color-bg-secondary);
+  }
+
+  html.dark .uplader-drag-area:hover {
+    background-color: var(--color-dark-bg-tertiary);
+  }
+
   .uploader-selected-file {
-    @apply flex items-center justify-between p-3 bg-gray-50 rounded-2xl;
+    @apply flex items-center justify-between p-3 rounded-2xl;
+    background-color: var(--color-bg-secondary);
+    transition: all 0.3s ease;
+  }
+
+  html.dark .uploader-selected-file {
+    background-color: var(--color-dark-bg-tertiary);
   }
 }
 
 @utility bg-gradient {
   background: linear-gradient(to bottom, #f0f4ff 60%, #fa7185cc);
+  transition: background 0.3s ease;
+}
+
+html.dark .bg-gradient {
+  background: linear-gradient(to bottom, #0f172a 60%, #4c1d95) !important;
 }
 
 @utility text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
 }
 
+html.dark .text-gradient {
+  @apply bg-gradient-to-r from-[#d1b8c4] via-[#e2e8f0] to-[#b8c5f2];
+}
+
 @utility gradient-hover {
   @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200;
+}
+
+html.dark .gradient-hover {
+  background: linear-gradient(to bottom, rgba(30, 41, 59, 0.4), rgba(51, 65, 85, 0.4));
 }
 
 @utility primary-gradient {
@@ -142,6 +416,10 @@ form {
   backdrop-filter: blur(10px);
 }
 
+html.dark .inset-shadow {
+  box-shadow: inset 0 0 12px 0 rgba(59, 130, 246, 0.3);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -149,4 +427,101 @@ form {
   to {
     opacity: 1;
   }
+}
+
+/* Ensure ALL elements inherit theme background properly */
+*,
+*::before, 
+*::after {
+  transition-property: background-color, border-color, color, box-shadow, background;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Force theme on body and main elements */
+body {
+  background: inherit !important;
+}
+
+html.dark body {
+  background: var(--color-dark-bg-primary) !important;
+}
+
+/* Ensure main always uses the gradient background */
+main:not(.!pt-0) {
+  @apply bg-gradient;
+}
+
+html.dark main:not(.!pt-0) {
+  background: linear-gradient(to bottom, #0f172a 60%, #4c1d95) !important;
+}
+
+/* Badge theme support */
+.score-badge.green {
+  background-color: var(--color-badge-green);
+  color: var(--color-badge-green-text);
+}
+
+html.dark .score-badge.green {
+  background-color: var(--color-dark-badge-green);
+  color: var(--color-dark-badge-green-text);
+}
+
+.score-badge.red {
+  background-color: var(--color-badge-red);
+  color: var(--color-badge-red-text);
+}
+
+html.dark .score-badge.red {
+  background-color: var(--color-dark-badge-red);
+  color: var(--color-dark-badge-red-text);
+}
+
+.score-badge.yellow {
+  background-color: var(--color-badge-yellow);
+  color: var(--color-badge-yellow-text);
+}
+
+html.dark .score-badge.yellow {
+  background-color: var(--color-dark-badge-yellow);
+  color: var(--color-dark-badge-yellow-text);
+}
+
+/* Enhanced feedback section styling */
+.feedback-section {
+  @apply flex flex-col gap-8 w-1/2 px-8 max-lg:w-full py-6;
+  background-color: var(--color-bg-primary);
+  transition: all 0.3s ease;
+}
+
+html.dark .feedback-section {
+  background-color: var(--color-dark-bg-primary);
+}
+
+/* Better text contrast for dark mode in all review components */
+html.dark .review-text {
+  color: var(--color-dark-text-primary) !important;
+  font-weight: 500;
+}
+
+html.dark .review-subtext {
+  color: var(--color-dark-text-secondary) !important;
+  font-weight: 400;
+}
+
+/* Enhanced CV review title */
+.cv-review-title {
+  color: var(--color-text-primary);
+  transition: color 0.3s ease;
+}
+
+html.dark .cv-review-title {
+  color: var(--color-dark-text-primary) !important;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+/* Better contrast for all component backgrounds in dark mode */
+html.dark .component-bg {
+  background-color: var(--color-dark-bg-secondary) !important;
+  border: 1px solid var(--color-dark-border) !important;
 }

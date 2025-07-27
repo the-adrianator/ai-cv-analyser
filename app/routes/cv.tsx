@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { usePuterStore } from "~/lib/puter";
+import { ThemeToggleCompact } from "~/components/ThemeToggle";
 import Summary from "~/components/Summary";
 import ATS from "~/components/ATS";
 import Details from "~/components/Details";
+import { ArrowBigLeftDash } from "lucide-react";
 
 export const meta = () => {
   return [
@@ -63,14 +65,19 @@ const CV = () => {
     <main className="!pt-0">
       <nav className="resume-nav">
         <Link to="/" className="back-button">
-          <img src="/icons/back.svg" alt="logo" className="w-2.5 h-2.5" />
-          <span className="text-gray-800 text-sm font-semibold">
+          <ArrowBigLeftDash className="w-4 h-4" />
+
+          <span className="text-primary text-sm font-semibold">
             Back to Homepage
           </span>
         </Link>
+
+        <div className="flex items-center gap-4">
+          <ThemeToggleCompact />
+        </div>
       </nav>
       <div className="flex flex-row w-full max-lg:flex-col-reverse">
-        <section className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover h-[100vh] sticky top-0 items-center justify-center">
+        <section className="feedback-section h-[100vh] sticky top-0 items-center justify-center">
           {imageUrl && cvUrl && (
             <div className="animate-in fade-in duration-1000 gradient-border max-sm:m-0 h-[90%] max-wxl:h-fit w-fit">
               <a href={cvUrl} target="_blank" rel="noopener noreferrer">
@@ -85,7 +92,9 @@ const CV = () => {
           )}
         </section>
         <section className="feedback-section">
-          <h2 className="text-4xl font-bold !text-black">CV review</h2>
+          <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
+            CV review
+          </h2>
           {feedback ? (
             <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
               <Summary feedback={feedback} />
@@ -96,7 +105,12 @@ const CV = () => {
               <Details feedback={feedback} />
             </div>
           ) : (
-            <img src="/images/resume-scan-2.gif" className="w-full" />
+            <div className="flex justify-center items-center">
+              <img
+                src="/images/resume-scan-2.gif"
+                className="w-full max-w-md"
+              />
+            </div>
           )}
         </section>
       </div>
